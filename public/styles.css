@@ -949,8 +949,8 @@ h1, h2, h3 { text-wrap: balance; }
 /* The approved backdrop bakes in a "place your bet" banner across the mid-board rows. Once a round
    starts this plate covers just that banner rect (matched to the neighbouring cell material) so the
    grid underneath stays the only thing the player reads — never toggled before the round begins. */
-.mine-banner-mask { position: absolute; z-index: 2; top: 56%; right: 8%; bottom: 33%; left: 8%; border-radius: 10px; background: linear-gradient(145deg, #123a5d, #061b2f); opacity: 0; pointer-events: none; transition: opacity 220ms ease; }
-.mines-reference-board.is-active .mine-banner-mask { opacity: 0.97; }
+.mine-banner-mask { position: absolute; z-index: 2; top: 49%; right: 3%; bottom: 24%; left: 3%; border-radius: 12px; background: linear-gradient(145deg, #0b2945, #061827); opacity: 0.99; pointer-events: none; }
+  .mines-reference-board.is-active .mine-banner-mask { opacity: 0.98; }
 .mine-readout { width: min(100%, 430px); margin: 0; color: #a8c4e7; }
 .mine-readout strong { color: #e7f7ff; }
 .mine-frame-fallback { width: min(100%, 430px); border-color: #4f78a8; border-radius: 12px; background: linear-gradient(145deg, #164168, #071b2f); box-shadow: 0 0 0 3px rgba(75, 164, 235, .22), inset 0 0 0 2px rgba(186, 229, 255, .16); }
