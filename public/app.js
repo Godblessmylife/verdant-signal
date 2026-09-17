@@ -100,10 +100,14 @@
   const ANIMATION_ROOT = '/assets/game-animations-ready';
   const app = document.getElementById('app');
   const state = {
-    catalogs: null, player: null, view: 'overview', activeGame: 'aviator', analysis: null,
+    catalogs: null, player: null, guestMode: true, view: 'overview', activeGame: 'aviator', analysis: null,
     history: [], activePlayers: [], activity: null, busy: false, message: '', minWithdrawalMinor: 10000,
     runtime: null, footballHistory: [], debugRuntime: null, sceneLoop: null, animationManifest: null,
   };
+
+  function guestPlayer() {
+    return { playerId: 'guest-line', nickname: 'Гость', profileCompleted: true, balanceMinor: 0, bonusBalanceMinor: 0, currencyCode: 'RUB', currencyFractionDigits: 2, currencyLocale: 'ru-RU', level: 1, activeDays: 0, consecutiveActiveDays: 0, withdrawalEligible: false };
+  }
 
   let locale = localStorage.getItem('verdant-locale') || 'en';
   if (!locales.includes(locale)) locale = 'en';
@@ -513,7 +517,7 @@
     if (game === 'chicken-road') return `<label for="difficulty">${t('difficulty')}<select id="difficulty"><option value="calm">${t('calm')}</option><option value="balanced" selected>${t('balanced')}</option><option value="sharp">${t('sharp')}</option></select></label><div class="control-note">${t('probabilisticNote')}</div>`;
     if (game === 'mines') return `<label for="mine-size">${t('fieldSize')}<select id="mine-size"><option value="16">4 × 4</option><option value="25" selected>5 × 5</option><option value="36">6 × 6</option></select></label><label for="mine-count">${t('mineCount')}<select id="mine-count"><option>3</option><option selected>4</option><option>6</option><option>8</option></select></label><div class="control-note">${t('mineNote')}</div>`;
     if (game === 'football-penalties') { const runtime = runtimeFor(game); return `<label for="football-role">${t('role')}<select id="football-role" ${runtime?.phase && runtime.phase !== 'ready' ? 'disabled' : ''}><option value="striker" ${(runtime?.role || 'striker') === 'striker' ? 'selected' : ''}>${t('striker')}</option><option value="keeper" ${runtime?.role === 'keeper' ? 'selected' : ''}>${t('keeper')}</option></select></label><label for="football-stake">${t('virtualStake')}<input id="football-stake" type="number" min="10" max="10000" step="10" value="${runtime?.stake || 100}" ${runtime?.phase && runtime.phase !== 'ready' ? 'disabled' : ''}><span class="field-hint">${t('stakeRange')}</span></label><div class="control-note">${t('virtualOnly')}</div>`; }
-    return `<div class="control-note">${t('aviatorRoundNote')}</div>`;
+    const runtime = runtimeFor(game); const active = ['countdown', 'takeoff', 'flying'].includes(runtime?.phase); return `<div class="aviator-control-grid"><label for="aviator-stake">Ставка<input id="aviator-stake" type="number" min="10" max="10000" step="10" value="100" ${active ? 'disabled' : ''}><span class="field-hint">Виртуальная ставка · RUB</span></label><div class="aviator-live-badge"><span class="status-dot"></span><strong data-runtime-state>${phaseLabel(runtime?.phase || 'ready')}</strong><small>раунд в реальном времени</small></div></div><div class="control-note">${t('aviatorRoundNote')}</div>`;
   }
 
   function debugEffectButtons() {
@@ -549,7 +553,7 @@
     bindShell(); hydrateSceneArt();
   }
 
-  function render() { document.documentElement.lang = locale; document.documentElement.dir = locale === 'ar' ? 'rtl' : 'ltr'; if (!state.player) renderAuth(); else if (!state.player.profileCompleted) renderOnboarding(); else renderShell(); }
+  function render() { document.documentElement.lang = locale; document.documentElement.dir = locale === 'ar' ? 'rtl' : 'ltr'; if (!state.player && state.guestMode) state.player = guestPlayer(); if (!state.player) renderAuth(); else if (!state.player.profileCompleted) renderOnboarding(); else renderShell(); }
 
   async function handleLogin(event) {
     event.preventDefault(); const form = new FormData(event.currentTarget); state.busy = true; state.message = ''; render();

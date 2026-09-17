@@ -400,7 +400,109 @@ p { line-height: 1.55; }
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
 
+/* Final Betwinner Line layer: keep the sportsbook palette above legacy theme rules. */
+body { background: #edf4f1 !important; }
+.workspace { background: #edf4f1 !important; }
+.side-rail { background: #f6faf8 !important; border-right: 1px solid #d4e2dd !important; }
+.side-rail .brand-lockup { border-bottom: 1px solid #d4e2dd; }
+.workspace-main { color: #17352c; }
+.platform-topbar { background: linear-gradient(90deg, #07563f 0%, #138661 58%, #0a674b 100%) !important; border-bottom: 3px solid #056244 !important; }
+.topbar-brand strong { color: #fff !important; }
+.topbar-brand strong em { color: #ffd400 !important; }
+.topbar-categories, .topbar-status { color: rgba(255,255,255,.84) !important; }
+.topbar-category.active { color: #fff !important; }
+.topbar-category.active::after { background: #ffd400 !important; }
+.workspace-header h1 { color: #15382d !important; }
+.metric-grid { border-color: #c8ddd5 !important; background: #c8ddd5 !important; }
+.metric { background: #fff !important; }
+.metric-value { color: #183a2f !important; }
+.panel { border-color: #cadbd5 !important; background: #fff !important; box-shadow: 0 7px 22px rgba(4,57,39,.07) !important; }
+.featured-panel, .game-stage { background: linear-gradient(145deg, #e5f4ed, #fff) !important; }
+.game-card { border-color: #c6d9d1 !important; background: linear-gradient(145deg, #fff, #eaf4f0) !important; }
+.game-card:hover, .game-card.active { border-color: #18a275 !important; background: #ddf3e9 !important; }
+.button-primary { color: #1b3328 !important; background: #ffd400 !important; box-shadow: 0 3px 0 #c49e00; }
+.button-ghost { color: #147654 !important; border-color: #9fcab7 !important; background: #f4fbf7 !important; }
+.game-stage .visual-stage, .chart-wrap { background: linear-gradient(180deg, #083c2b, #061e16) !important; }
+.aviator-control-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: end; margin-bottom: 14px; }
+.aviator-live-badge { display: grid; min-height: 46px; align-content: center; padding: 7px 12px; border: 1px solid #afd6c5; border-radius: 7px; background: #eff9f4; }
+.aviator-live-badge strong { color: #087d59; font-size: .78rem; }
+.aviator-live-badge small { color: #759188; font-size: .68rem; }
+@media (max-width: 780px) { .aviator-control-grid { grid-template-columns: 1fr; } }
+
+
 [hidden] { display: none !important; }
+
+/* Betwinner Line visual system: dense sportsbook shell with yellow-green contrast. */
+:root {
+  --color-canvas: #071b16;
+  --color-surface: #f1f6f3;
+  --color-surface-raised: #e2eee9;
+  --color-surface-bright: #ffffff;
+  --color-rule: #c6d8d1;
+  --color-ink: #17352c;
+  --color-muted: #5c746b;
+  --color-faint: #789087;
+  --color-accent: #ffd400;
+  --color-accent-deep: #e3b900;
+  --color-accent-ink: #172b23;
+  --color-success: #23a77b;
+  --platform-green: #087d59;
+  --platform-green-deep: #075940;
+  --shadow-soft: 0 16px 42px rgba(0, 45, 30, .14);
+}
+body { background: #edf4f1; }
+.workspace { grid-template-columns: 256px minmax(0, 1fr); background: #edf4f1; }
+.side-rail { border-right: 0; background: #f6faf8; box-shadow: 5px 0 20px rgba(0, 49, 34, .08); }
+.side-rail .brand-lockup { padding: 10px 12px 20px; border-bottom: 1px solid #d4e2dd; }
+.brand-mark, .topbar-mark { border: 0; border-radius: 5px; color: #123b2d; background: var(--color-accent); transform: none; box-shadow: 0 3px 0 rgba(174, 137, 0, .32); }
+.brand-mark::after { display: none; }
+.brand-lockup strong, .topbar-brand strong { font-family: Arial, sans-serif; font-weight: 900; letter-spacing: -.04em; }
+.brand-lockup strong { color: #197955; }
+.brand-lockup strong em, .topbar-brand strong em { color: var(--color-accent-deep); }
+.brand-lockup small { color: #6d877d; }
+.rail-label { color: #759188; font-family: Arial, sans-serif; font-weight: 700; letter-spacing: .04em; }
+.nav-button, .game-nav { color: #46665a; border-radius: 5px; font-family: Arial, sans-serif; }
+.nav-button:hover, .nav-button.active, .game-nav:hover, .game-nav.active { color: #fff; background: #188b68; }
+.nav-button.active { box-shadow: none; }
+.game-nav.active::before { display: none; }
+.game-nav.active .game-dot, .game-dot { background: var(--color-accent); box-shadow: none; }
+.workspace-main { padding: 0 clamp(18px, 2.8vw, 48px) 80px; }
+.platform-topbar { min-height: 58px; margin: 0 calc(clamp(18px, 2.8vw, 48px) * -1) 20px; padding: 0 clamp(18px, 2.8vw, 48px); gap: 22px; background: linear-gradient(90deg, #07563f, #138661 58%, #0a674b); border-bottom: 3px solid #056244; box-shadow: 0 4px 14px rgba(0, 46, 31, .16); }
+.topbar-brand strong { color: #fff; font-size: 1.06rem; }
+.topbar-brand small { color: rgba(255,255,255,.7); }
+.topbar-categories { justify-content: flex-start; gap: 26px; color: rgba(255,255,255,.8); font-family: Arial, sans-serif; font-weight: 700; letter-spacing: 0; text-transform: uppercase; }
+.topbar-category.active { color: #fff; }
+.topbar-category.active::after { background: var(--color-accent); }
+.topbar-status { color: #fff; }
+.topbar-status .language-select { color: #fff; background: rgba(0, 45, 31, .28); border-color: rgba(255,255,255,.25); }
+.workspace-header h1 { color: #15382d; font-family: Arial, sans-serif; font-weight: 900; letter-spacing: -.045em; }
+.eyebrow, .panel-kicker { color: #16815f; }
+.lede, .panel-copy { color: #668077; }
+.status-badge { color: #138762; border-color: #8bcdb5; background: #e1f3eb; }
+.metric-grid { border-color: #c8ddd5; background: #c8ddd5; }
+.metric { background: #fff; }
+.metric:first-child { background: linear-gradient(135deg, #e5f6ee, #fff); }
+.metric-label { color: #789188; }
+.metric-value { color: #183a2f; }
+.panel { border-color: #cadbd5; background: #fff; box-shadow: 0 7px 22px rgba(4, 57, 39, .07); }
+.featured-panel, .game-stage { border-color: #9ccfbb; background: linear-gradient(145deg, #e5f4ed, #fff); }
+.game-card { border-color: #c6d9d1; background: linear-gradient(145deg, #fff, #eaf4f0); }
+.game-card:hover, .game-card.active { border-color: #18a275; background: #ddf3e9; }
+.game-card strong { color: #1a4939; }
+.chart-wrap, .visual-stage { border-color: #79bb9f; background: linear-gradient(180deg, #083c2b, #061e16); }
+.big-readout { color: var(--color-accent-deep); text-shadow: 0 2px 0 rgba(0,0,0,.18); }
+.game-layout { grid-template-columns: minmax(0, 1.55fr) minmax(320px, .65fr); }
+.aviator-control-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: end; margin-bottom: 14px; }
+.aviator-live-badge { display: grid; min-height: 46px; align-content: center; padding: 7px 12px; border: 1px solid #afd6c5; border-radius: 7px; background: #eff9f4; }
+.aviator-live-badge strong { color: #087d59; font-size: .78rem; }
+.aviator-live-badge small { color: #759188; font-size: .68rem; }
+.control-fields select, .control-fields input { color: #1a4033; background: #fff; border-color: #bfd5cb; }
+.button-primary { color: #1b3328; background: var(--color-accent); box-shadow: 0 3px 0 #c49e00; }
+.button-primary:hover:not(:disabled) { background: #ffe14a; }
+.button-ghost { color: #147654; border-color: #9fcab7; background: #f4fbf7; }
+
+@media (max-width: 780px) { .platform-topbar { min-height: 54px; margin-bottom: 16px; } .topbar-categories { display: none; } .aviator-control-grid { grid-template-columns: 1fr; } }
+
 
 /* Verdant Signal redesign pass: platform shell + finite game motion */
 :root {
