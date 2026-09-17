@@ -245,7 +245,7 @@ p { line-height: 1.55; }
 .apple-cell.danger { color: var(--color-error); }
   .mine-stage { display: grid; place-items: center; padding: 24px; }
   .mines-embedded-stage { min-height: 620px; padding: 0; overflow: hidden; border-color: oklch(78% 0.185 96 / 0.34); background: #07130e; }
-  .mines-game-embed { display: block; width: 100%; height: min(78dvh, 720px); min-height: 560px; border: 0; background: #07130e; }
+  .mines-game-embed { position: relative; z-index: 1; display: block; width: 100%; height: min(78dvh, 720px); min-height: 560px; border: 0; background: #07130e; pointer-events: auto; touch-action: manipulation; }
 
 .mine-grid { display: grid; width: min(100%, 360px); grid-template-columns: repeat(5, 1fr); gap: 8px; }
 .mine-cell { display: grid; aspect-ratio: 1; place-items: center; border: 1px solid var(--color-rule); border-radius: 9px; color: var(--color-muted); background: var(--color-surface-raised); font-family: var(--font-mono); font-size: 0.7rem; }
