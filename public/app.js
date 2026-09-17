@@ -468,31 +468,8 @@
   }
 
   function renderMinesStage() {
-    const analysis = state.analysis?.game === 'mines' ? state.analysis : null;
-    const size = Number(document.getElementById('mine-size')?.value || analysis?.size || 25);
-    const mines = Number(document.getElementById('mine-count')?.value || analysis?.mines || 4);
-    const runtime = runtimeFor('mines') || { phase: 'ready', size, mines, opened: {} };
-    const recommended = analysis?.recommendedCells || [0, 2, 7];
-    const columns = Math.round(Math.sqrt(size));
-    const cells = Array.from({ length: size }, (_, index) => {
-      const cell = runtime.opened?.[index];
-      const suggested = recommended.includes(index) && !cell;
-      const resultClass = cell ? `is-${cell.result}` : '';
-      // Real layered art for both reveal outcomes: a faceted blue crystal on safe, a fused bomb on mine.
-      // Never a glyph, emoji or bare CSS circle — see public/assets/generated/mines-*.svg.
-      const opening = runtime.phase === 'opening' && runtime.opening === index;
-      const face = cell
-        ? `<span class="mine-face is-revealed ${cell.result === 'safe' ? 'is-safe' : 'is-mine'}" aria-hidden="true"><img src="${cell.result === 'safe' ? ART.mines.diamond : ART.mines.bomb}" alt=""><canvas class="mine-cell-animation" data-mine-animation="${index}" aria-hidden="true"></canvas></span>`
-        : opening ? `<span class="mine-face is-revealed is-opening" aria-hidden="true"><canvas class="mine-cell-animation" data-mine-animation="${index}" aria-hidden="true"></canvas></span>` : suggested ? '<span class="mine-hint" aria-hidden="true"></span>' : '';
-      return `<button class="mine-cell ${suggested ? 'is-suggested' : ''} ${resultClass} ${runtime.phase === 'opening' && runtime.opening === index ? 'is-opening' : ''}" type="button" data-game-action="mine-open" data-cell="${index}" ${runtime.phase !== 'playing' || runtime.phase === 'opening' || runtime.phase === 'mine' || cell ? 'disabled' : ''} aria-label="${t('cell')} ${index + 1}, ${cell ? (cell.result === 'safe' ? t('cellSafe') : t('cellMine')) : suggested ? t('recommended') : t('unopened')}">${face}</button>`;
-    }).join('');
-    // Once a round is under way the baked "place your bet" banner on the approved backdrop is masked
-    // out with a plate matched to the surrounding cell material, so it never sits on top of live cells.
-    const started = runtime.phase !== 'ready' || Object.keys(runtime.opened || {}).length > 0;
-    const board = size === 25
-      ? `<div class="mines-reference-board ${started ? 'is-active' : ''}" data-art-layer="approved-mines-scene"><img class="mines-reference-art" src="${ART.mines.approvedScene}" alt="" aria-hidden="true"><div class="mine-banner-mask" aria-hidden="true"></div><div class="mine-overlay" style="--mine-columns:5">${cells}</div></div>`
-      : `<div class="mine-frame mine-frame-fallback"><div class="mine-topline"><span>${t('fieldSize')} / ${columns}×${columns}</span><span>${t('mineCount')} / ${mines}</span></div><div class="mine-grid" style="--mine-columns:${columns}">${cells}</div></div>`;
-    return `<div class="visual-stage mines-stage pipeline-stage" data-runtime-game="mines" data-mine-size="${size}">${board}<div class="mine-readout"><span>${t('recommendedCells')} / ${mines}</span><strong data-runtime-caption>${phaseLabel(runtime.phase)}</strong></div><div class="stage-caption"><span>${t('simulationMode')}</span></div></div>`;
+    const minesGameUrl = 'https://democasino.betsoftgaming.com/cwguestlogin.do?bankId=675&CDN=AUTO&gameId=959';
+    return `<div class="visual-stage mines-stage mines-embedded-stage" data-runtime-game="mines"><iframe class="mines-game-embed" src="${minesGameUrl}" title="Mines casino game" referrerpolicy="no-referrer" allow="fullscreen; autoplay" loading="eager"></iframe></div>`;
   }
 
   function renderFootballStage() {
