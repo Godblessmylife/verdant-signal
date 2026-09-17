@@ -875,7 +875,9 @@
 
   async function init() {
     preloadArt();
-    try { await loadAnimationManifest(); const [catalogs, config] = await Promise.all([api('/api/catalogs'), api('/api/config')]); state.catalogs = catalogs; state.minWithdrawalMinor = config.minWithdrawalMinor || state.minWithdrawalMinor; try { const me = await api('/api/player/me'); state.player = me.player; } catch (error) { if (error.status !== 401) state.message = error.message; } render(); if (state.player?.profileCompleted) await refreshActivity(); }
+    // Animations are enhancement-only and must not block the first workspace render.
+    loadAnimationManifest();
+    try { const [catalogs, config] = await Promise.all([api('/api/catalogs'), api('/api/config')]); state.catalogs = catalogs; state.minWithdrawalMinor = config.minWithdrawalMinor || state.minWithdrawalMinor; try { const me = await api('/api/player/me'); state.player = me.player; } catch (error) { if (error.status !== 401) state.message = error.message; } render(); if (state.player?.profileCompleted) refreshActivity(); }
     catch (error) { state.message = error.message; renderAuth(); }
   }
 
