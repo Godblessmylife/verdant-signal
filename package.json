@@ -5,6 +5,7 @@
   "description": "Greenfield AI-assisted simulated gaming round analysis workspace.",
   "main": "server/index.js",
   "scripts": {
+    "dev": "node server/index.js",
     "start": "node server/index.js",
     "test": "node --test",
     "test:watch": "node --test --watch"
