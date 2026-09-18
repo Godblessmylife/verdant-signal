@@ -456,8 +456,9 @@
   function renderFooter() { return `<footer class="statement-footer"><div><p>BETWINNER LINE / ${t('analysisEngine')} / ${t('simulatedData')}</p><div class="footer-links"><button class="text-link" data-legal="privacy" type="button">${t('legalPrivacy')}</button><button class="text-link" data-legal="terms" type="button">${t('legalTerms')}</button><button class="text-link" data-legal="responsible" type="button">${t('legalResponsible')}</button><button class="text-link" data-legal="disclaimer" type="button">${t('legalDisclaimer')}</button></div></div><p>${t('disclaimerText')}</p></footer>`; }
 
   function renderAviatorStage() {
-    const aviatorUrl = 'https://gx-games-54rg78cw-tralt14.click/fg-aviashow-client/game/?activeGameId=0&partnerId=2695&token=&playerId=0&culture=en&isDemo=true&isMobile=false&referer=&isFeatureMessagePackEnabled=true&isMessagePackEnabled=false&backUrl=gx-games-54rg78cw-tralt14.click/fg-aviashow-api&gameKindName=AviaShow&gameTypeName=AviaShow&mode=2&partnerPlayerId=';
-    return `<div class="visual-stage external-game-stage" data-runtime-game="aviator"><iframe class="external-game-embed" src="${aviatorUrl}" title="Aviator game" referrerpolicy="no-referrer" allow="fullscreen; autoplay; gamepad" loading="eager"></iframe></div>`;
+    const isMobileViewport = typeof window !== 'undefined' && window.innerWidth <= 780;
+    const aviatorUrl = `https://gx-games-54rg78cw-tralt14.click/fg-aviashow-client/game/?activeGameId=0&partnerId=2695&token=&playerId=0&culture=en&isDemo=true&isMobile=${isMobileViewport}&referer=&isFeatureMessagePackEnabled=true&isMessagePackEnabled=false&backUrl=gx-games-54rg78cw-tralt14.click/fg-aviashow-api&gameKindName=AviaShow&gameTypeName=AviaShow&mode=2&partnerPlayerId=`;
+    return `<div class="visual-stage external-game-stage aviator-embed-stage" data-runtime-game="aviator"><iframe class="external-game-embed" src="${aviatorUrl}" title="Aviator game" referrerpolicy="no-referrer" allow="fullscreen; autoplay; gamepad" loading="eager"></iframe></div>`;
   }
 
   function renderChickenStage() {
@@ -559,7 +560,7 @@
   }
 
   async function openGame(game) {
-    if (!games.includes(game)) return; stopGameAnimation(); state.view = 'game'; state.activeGame = game; state.analysis = null; state.history = []; state.message = ''; state.runtime = createReadyRuntime(game); render();
+  if (!games.includes(game)) return; stopGameAnimation(); state.view = 'game'; state.activeGame = game; state.analysis = null; state.history = []; state.message = ''; state.runtime = createReadyRuntime(game); render(); scrollWorkspaceToTop();
     try { const result = await api(`/api/games/${game}/history`); state.history = result.history || []; if (state.view === 'game' && state.activeGame === game) render(); }
     catch { /* Empty history is a valid first-run state. */ }
   }
@@ -603,9 +604,11 @@
     dialog.showModal();
   }
 
+  function scrollWorkspaceToTop() { window.scrollTo(0, 0); document.querySelector('.workspace-main')?.scrollTo?.(0, 0); document.documentElement.scrollTop = 0; document.body.scrollTop = 0; }
+
   function bindShell() {
-    document.querySelectorAll('[data-view]').forEach((button) => button.addEventListener('click', async (event) => { event.preventDefault(); stopGameAnimation(); state.view = button.dataset.view; state.message = ''; if (state.view === 'activity') await refreshActivity(); else render(); }));
-    document.querySelectorAll('[data-game]').forEach((button) => button.addEventListener('click', () => openGame(button.dataset.game)));
+  document.querySelectorAll('[data-view]').forEach((button) => button.addEventListener('click', async (event) => { event.preventDefault(); stopGameAnimation(); state.view = button.dataset.view; state.message = ''; scrollWorkspaceToTop(); if (state.view === 'activity') await refreshActivity(); else render(); }));
+  document.querySelectorAll('[data-game]').forEach((button) => button.addEventListener('click', () => openGame(button.dataset.game)));
     document.querySelectorAll('[data-auth-action]').forEach((button) => button.addEventListener('click', () => openAuthModal(button.dataset.authAction)));
     document.querySelectorAll('[data-game-frame]').forEach((button) => button.addEventListener('click', () => openGameFrame()));
     document.querySelectorAll('[data-analyze]').forEach((button) => button.addEventListener('click', () => requestAnalysis(button.dataset.analyze)));
