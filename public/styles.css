@@ -255,9 +255,9 @@ p { line-height: 1.55; }
 .apple-cell.recommended { border-color: var(--color-accent); color: var(--color-accent-ink); background: var(--color-accent); box-shadow: 0 0 22px oklch(78% 0.185 96 / 0.12); }
 .apple-cell.danger { color: var(--color-error); }
   .mine-stage { display: grid; place-items: center; padding: 24px; }
-  .mines-embedded-stage { min-height: 620px; padding: 0; overflow: hidden; border-color: oklch(78% 0.185 96 / 0.34); background: #07130e; }
-  .mines-game-embed, .external-game-embed { position: relative; z-index: 1; display: block; width: 100%; height: min(78dvh, 760px); min-height: 560px; border: 0; background: #07130e; pointer-events: auto; touch-action: manipulation; }
-  .external-game-stage { min-height: 0; height: clamp(420px, 58dvh, 560px); padding: 0; overflow: hidden; border-color: #9ccfbb; background: #07130e; }
+ .mines-embedded-stage, .football-embedded-stage { min-height: 620px; padding: 0; overflow: hidden; border-color: oklch(78% 0.185 96 / 0.34); background: #07130e; }
+ .mines-game-embed, .football-game-embed, .external-game-embed { position: relative; z-index: 1; display: block; width: 100%; height: min(78dvh, 760px); min-height: 560px; border: 0; background: #07130e; pointer-events: auto; touch-action: manipulation; }
+ .external-game-stage { min-height: 0; height: clamp(420px, 58dvh, 560px); padding: 0; overflow: hidden; border-color: #9ccfbb; background: #07130e; }
   .external-game-embed { height: 100%; min-height: 0; }
   .game-view .game-action-row { display: none; }
   .game-view [data-game-action="aviator-start"], .game-view [data-game-action="mine-start"], .game-view [data-game-action="mine-reset"], .game-view [data-game-action="chicken-step"], .game-view [data-game-action="football-run"] { display: none; }
@@ -881,9 +881,10 @@ h1, h2, h3 { text-wrap: balance; }
   .external-game-stage { width: 100%; height: min(76svh, 620px); min-height: 460px; border-radius: 10px; }
   .external-game-stage .external-game-embed { width: 100%; height: 100%; min-height: 0; }
   .aviator-embed-stage { height: min(76svh, 620px); min-height: 460px; }
-  .game-view:has(.external-game-stage) .game-stage-panel { padding: 8px; }
-  .game-view:has(.external-game-stage) .panel-body { padding: 10px; }
-  .game-view:has(.external-game-stage) .stage-caption { display: none; }
+ .game-view:has(.external-game-stage), .game-view:has(.mines-embedded-stage), .game-view:has(.football-embedded-stage) { --embed-active: 1; }
+ .game-view:has(.external-game-stage) .game-stage-panel, .game-view:has(.mines-embedded-stage) .game-stage-panel, .game-view:has(.football-embedded-stage) .game-stage-panel { padding: 8px; }
+ .game-view:has(.external-game-stage) .panel-body, .game-view:has(.mines-embedded-stage) .panel-body, .game-view:has(.football-embedded-stage) .panel-body { padding: 10px; }
+ .game-view:has(.external-game-stage) .stage-caption, .game-view:has(.mines-embedded-stage) .stage-caption, .game-view:has(.football-embedded-stage) .stage-caption { display: none; }
   .pipeline-stage { min-height: 405px; }
   .aviator-stage, .chicken-road-stage, .apple-stage, .mines-stage, .football-stage { min-height: 405px; }
   .road-playfield { right: 3%; left: 3%; height: 224px; }
