@@ -7,7 +7,7 @@ window.VERDANT_TRANSLATIONS = {
     onboardingTitle: 'Set your signal profile.', onboardingCopy: 'Choose the details used to format your personal workspace. Nothing here controls an external game account.',
     nickname: 'Nickname', nicknamePlaceholder: '3–24 characters', country: 'Country', currency: 'Display currency', chooseCountry: 'Choose country', chooseCurrency: 'Choose currency',
     acceptTerms: 'I agree to the Terms of Use.', acceptDisclaimer: 'I understand the analysis disclaimer.', termsLink: 'Terms', disclaimerLink: 'Disclaimer', saveProfile: 'Save profile', saving: 'Saving…', profileNote: 'Your Player ID is stored as a protected identifier and shown in masked form.',
-    overview: 'Overview', activity: 'Activity', profile: 'Profile', signOut: 'Sign out', games: 'Games',
+    overview: 'Overview', activity: 'Activity', profile: 'Profile', signOut: 'Sign out', games: 'Games', backToHome: 'Back to home',
     aviator: 'Aviator', chickenRoad: 'Chicken Road', appleFortune: 'Apple of Fortune', mines: 'Mines', footballPenalties: 'Football Penalties',
     betaGames: 'Beta games', inDevelopment: 'In development', dashboardKicker: 'Observation desk', hello: 'Hello', dashboardTitle: 'Make the next round legible.', dashboardCopy: 'Pattern-based analysis for reflection and play literacy. Every result is simulated data.',
     demoAnalysis: 'DEMO ANALYSIS', simulatedData: 'SIMULATED DATA', noGuarantee: 'NO GUARANTEE OF WIN', activeDays: 'Active days', balance: 'Balance', bonusBalance: 'Bonus balance', level: 'Level', currentStreak: 'Current streak',
