@@ -247,9 +247,9 @@ p { line-height: 1.55; }
 .road-step { display: grid; width: 48px; height: 48px; place-items: center; border: 1px solid var(--color-rule); border-radius: 50%; color: var(--color-muted); font-family: var(--font-mono); font-size: 0.72rem; }
 .road-step.safe { border-color: oklch(78% 0.185 96 / 0.42); color: var(--color-accent); background: oklch(78% 0.185 96 / 0.09); }
 .apple-stage { display: grid; gap: 10px; padding: 20px; }
-.apple-row { display: grid; grid-template-columns: 42px repeat(5, minmax(40px, 1fr)); gap: 8px; align-items: center; }
+.apple-row { display: grid; grid-template-columns: 56px repeat(5, minmax(74px, 1fr)); gap: 12px; align-items: center; }
 .row-number { color: var(--color-faint); font-family: var(--font-mono); font-size: 0.65rem; }
-.apple-cell { display: grid; min-height: 52px; place-items: center; border: 1px solid var(--color-rule); border-radius: 10px; color: var(--color-muted); background: var(--color-surface-raised); font-family: var(--font-mono); font-size: 0.72rem; }
+.apple-cell { display: grid; min-height: 118px; place-items: center; border: 1px solid var(--color-rule); border-radius: 10px; color: var(--color-muted); background: var(--color-surface-raised); font-family: var(--font-mono); font-size: 0.72rem; }
 .apple-cell.recommended { border-color: var(--color-accent); color: var(--color-accent-ink); background: var(--color-accent); box-shadow: 0 0 22px oklch(78% 0.185 96 / 0.12); }
 .apple-cell.danger { color: var(--color-error); }
   .mine-stage { display: grid; place-items: center; padding: 24px; }
@@ -257,7 +257,8 @@ p { line-height: 1.55; }
   .mines-game-embed, .external-game-embed { position: relative; z-index: 1; display: block; width: 100%; height: min(78dvh, 760px); min-height: 560px; border: 0; background: #07130e; pointer-events: auto; touch-action: manipulation; }
   .external-game-stage { min-height: 0; height: clamp(420px, 58dvh, 560px); padding: 0; overflow: hidden; border-color: #9ccfbb; background: #07130e; }
   .external-game-embed { height: 100%; min-height: 0; }
-  .game-view [data-game-action="aviator-start"], .game-view [data-game-action="mine-start"], .game-view [data-game-action="mine-reset"], .game-view [data-game-action="chicken-step"] { display: none; }
+  .game-view .game-action-row { display: none; }
+  .game-view [data-game-action="aviator-start"], .game-view [data-game-action="mine-start"], .game-view [data-game-action="mine-reset"], .game-view [data-game-action="chicken-step"], .game-view [data-game-action="football-run"] { display: none; }
   .game-view .game-actions:has([data-game-action="aviator-start"]), .game-view .game-actions:has([data-game-action="mine-start"]) { display: none; }
 
 .mine-grid { display: grid; width: min(100%, 360px); grid-template-columns: repeat(5, 1fr); gap: 8px; }
@@ -404,7 +405,7 @@ p { line-height: 1.55; }
   .game-card strong { font-size: 1.03rem; }
   .apple-stage { padding: 12px 8px; }
   .apple-row { grid-template-columns: 27px repeat(5, minmax(0, 1fr)); gap: 4px; }
-  .apple-cell { min-height: 42px; border-radius: 7px; font-size: 0.62rem; }
+  .apple-cell { min-height: 78px; border-radius: 7px; font-size: 0.62rem; }
   .mine-grid { gap: 5px; }
   .mine-cell { border-radius: 6px; font-size: 0.62rem; }
   .filter-bar { grid-template-columns: 1fr; }
@@ -696,9 +697,9 @@ h1, h2, h3 { text-wrap: balance; }
 .apple-row.is-current { background: rgba(233, 187, 91, 0.14); outline: 1px solid rgba(247, 201, 103, 0.44); }
 .row-number { display: grid; gap: 4px; color: #edc979; font-size: 0.68rem; }.row-number small { color: rgba(255, 224, 151, 0.7); font-size: 0.57rem; }
 .apple-cells { display: contents; }
-.apple-cell { position: relative; min-height: 59px; overflow: hidden; border: 1px solid rgba(239, 199, 113, 0.38); border-radius: 6px; color: rgba(255, 227, 163, 0.65); background: linear-gradient(145deg, #9b6a38, #634222); transition: transform 220ms var(--motion-snap), border-color 180ms ease, background 180ms ease; }
+.apple-cell { position: relative; min-height: 132px; overflow: hidden; border: 1px solid rgba(239, 199, 113, 0.38); border-radius: 6px; color: rgba(255, 227, 163, 0.65); background: linear-gradient(145deg, #9b6a38, #634222); transition: transform 220ms var(--motion-snap), border-color 180ms ease, background 180ms ease; }
 .apple-cell::before { position: absolute; inset: 5px; border: 1px solid rgba(255, 227, 163, 0.13); content: ''; }
-.apple-cell:hover:not(:disabled) { border-color: #f8dc91; transform: translateY(-2px); }.apple-cell:disabled { cursor: not-allowed; opacity: 0.5; }.apple-cell.is-suggested { border-color: #baf08b; box-shadow: 0 0 0 2px rgba(186, 240, 139, 0.16); }.apple-cell.is-safe { color: #142d18; background: #b3eb80; }.apple-cell.is-danger { color: #fff0db; background: #a95b4d; }.apple-face { position: relative; z-index: 1; font-size: 1.3rem; }.apple-leaf { position: absolute; right: 6px; top: 4px; color: rgba(219, 247, 143, 0.65); font-size: 0.66rem; }.apple-cell.is-flipping { animation: apple-flip 520ms ease both; }
+.apple-cell:hover:not(:disabled) { border-color: #f8dc91; transform: translateY(-2px); }.apple-cell:disabled { cursor: not-allowed; opacity: 0.5; }.apple-cell.is-suggested { border-color: #baf08b; box-shadow: 0 0 0 2px rgba(186, 240, 139, 0.16); }.apple-cell.is-safe { color: #142d18; background: #b3eb80; }.apple-cell.is-danger { color: #fff0db; background: #a95b4d; }.apple-face { position: relative; z-index: 1; font-size: 3.4rem; transform: scale(2.4); }.apple-leaf { position: absolute; right: 6px; top: 4px; color: rgba(219, 247, 143, 0.65); font-size: 0.66rem; }.apple-cell.is-flipping { animation: apple-flip 520ms ease both; }
 
 /* Mines: square target buttons keep the grid legible and keyboard friendly */
 .mines-stage { min-height: 430px; padding: 25px; background: radial-gradient(circle at 50% 30%, rgba(91, 191, 101, 0.2), transparent 34%), #061d13; }
@@ -710,7 +711,7 @@ h1, h2, h3 { text-wrap: balance; }
 /* Football: goal zones are real controls, ball/keeper animate together */
 .football-stage { min-height: 430px; padding: 24px 18px; background: linear-gradient(180deg, #0c3825, #061d14 66%, #052016); }
 .goal-scene { position: relative; z-index: 1; width: min(100%, 560px); margin-top: 12px; }.goal-net { position: relative; height: 250px; overflow: hidden; border: 4px solid #e5f1dd; border-bottom-width: 7px; background: linear-gradient(180deg, rgba(227, 241, 218, 0.04), rgba(2, 21, 12, 0.62)), repeating-linear-gradient(0deg, transparent 0 28px, rgba(226, 242, 216, 0.18) 29px 30px), repeating-linear-gradient(90deg, transparent 0 37px, rgba(226, 242, 216, 0.18) 38px 39px); box-shadow: 0 12px 0 rgba(2, 11, 7, 0.25); }.goal-crossbar { position: absolute; top: 28%; right: 0; left: 0; border-top: 1px solid rgba(226, 242, 216, 0.34); }.goal-post { position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(226, 242, 216, 0.3); }.post-left { left: 20%; }.post-right { right: 20%; }
-.goal-zones { position: absolute; inset: 8% 3% 3%; display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; }.goal-zone { min-height: 44px; align-self: center; border: 1px dashed rgba(227, 244, 216, 0.22); border-radius: 4px; color: rgba(232, 247, 222, 0.64); background: rgba(11, 57, 32, 0.19); }.goal-zone:hover:not(:disabled), .goal-zone.is-selected { border-color: #f3cb6d; color: #122113; background: #eec66a; }.goal-zone span { font-family: var(--font-mono); font-size: 0.72rem; }
+.goal-zones { position: absolute; inset: 5% 3% 22%; display: grid; grid-template-columns: repeat(5, 1fr); gap: 9px; }.goal-zone { min-height: 66px; align-self: center; border: 1px dashed rgba(227, 244, 216, 0.22); border-radius: 4px; color: rgba(232, 247, 222, 0.64); background: rgba(11, 57, 32, 0.19); }.goal-zone:hover:not(:disabled), .goal-zone.is-selected { border-color: #f3cb6d; color: #122113; background: #eec66a; }.goal-zone span { font-family: var(--font-mono); font-size: 0.72rem; }
 .keeper-actor { position: absolute; z-index: 2; bottom: -7px; left: 50%; width: 48px; height: 104px; transform: translateX(-50%); }.keeper-head { position: absolute; top: 0; left: 12px; width: 25px; height: 25px; border: 2px solid #b4e894; border-radius: 50%; background: #1d6948; }.keeper-body { position: absolute; right: 7px; bottom: 0; left: 7px; height: 76px; border: 2px solid #b4e894; border-radius: 22px 22px 7px 7px; background: #1b6044; }.keeper-arm { position: absolute; z-index: -1; top: 42px; width: 42px; height: 9px; border: 2px solid #b4e894; border-radius: 50%; background: #1b6044; }.arm-left { right: 25px; transform: rotate(28deg); }.arm-right { left: 25px; transform: rotate(-28deg); }.football-ball { position: absolute; z-index: 3; bottom: 21px; left: 10%; display: grid; width: 24px; height: 24px; place-items: center; transition: left 680ms var(--motion-snap), bottom 680ms var(--motion-snap); }.football-stage.is-kick .football-ball, .football-stage.is-goal .football-ball, .football-stage.is-save .football-ball, .football-stage.is-miss .football-ball { left: 76%; bottom: 60%; }.football-stage.is-save .keeper-actor { animation: keeper-dive-left 760ms var(--motion-snap) both; }.football-stage.is-goal .keeper-actor { animation: keeper-dive-right 760ms var(--motion-snap) both; }.football-stage.is-miss .football-ball { left: 88%; bottom: 91%; }.football-readout { position: relative; z-index: 2; display: grid; justify-items: center; gap: 4px; margin-top: 17px; }.football-readout strong { color: var(--color-warning); font-family: var(--font-display); font-size: 1.8rem; }
 
 .mobile-utility { margin: 0; }.mobile-utility summary { min-height: 46px; padding: 14px 16px; border: 1px solid var(--color-rule); border-radius: 8px; color: var(--color-ink); background: var(--color-surface); font-family: var(--font-mono); font-size: 0.69rem; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; }.mobile-utility[open] summary { border-radius: 8px 8px 0 0; }.mobile-utility .utility-stack { padding-top: 12px; }
@@ -813,7 +814,10 @@ h1, h2, h3 { text-wrap: balance; }
 .apple-cell.is-safe { border-color: #c6f399; background: #95cc70; }
 .apple-cell.is-danger { border-color: #efab83; background: #9c5144; }
 .apple-cell.is-opening .apple-cell-inner { animation: apple-cell-flip 560ms cubic-bezier(0.2, 0.72, 0.25, 1) both; }
-.apple-axis { position: relative; z-index: 2; display: flex; justify-content: space-between; gap: 12px; width: min(100%, 640px); margin: 13px auto 0; color: #b9d3ae; font-family: var(--font-mono); font-size: 0.6rem; text-transform: uppercase; }
+  .apple-score, .football-score { color: #f6d574; font-family: var(--font-display); font-size: 1rem; letter-spacing: .04em; text-shadow: 0 0 14px rgba(246,213,116,.28); }
+  .apple-cell.is-safe { animation: apple-hit 520ms ease both; }
+  @keyframes apple-hit { 0% { transform: scale(.82); box-shadow: 0 0 0 rgba(186,240,139,0); } 55% { transform: scale(1.12); box-shadow: 0 0 34px rgba(186,240,139,.72); } 100% { transform: scale(1); } }
+  .apple-axis { position: relative; z-index: 2; display: flex; justify-content: space-between; gap: 12px; width: min(100%, 640px); margin: 13px auto 0; color: #b9d3ae; font-family: var(--font-mono); font-size: 0.6rem; text-transform: uppercase; }
 
 /* Mines keeps 44px controls while the frame owns all internal spacing. */
 .mines-stage { min-height: 450px; overflow: hidden; padding: 24px 16px; background: radial-gradient(circle at 50% 23%, rgba(90, 192, 102, 0.2), transparent 34%), #061d13; }
