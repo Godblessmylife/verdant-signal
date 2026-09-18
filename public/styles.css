@@ -105,7 +105,16 @@ p { line-height: 1.55; }
 .form-message { min-height: 22px; margin: 2px 0 0; color: var(--color-error); font-size: 0.82rem; }
 .form-message.success { color: var(--color-success); }
 .helper { color: var(--color-faint); font-size: 0.78rem; }
-.auth-legal { display: flex; flex-wrap: wrap; gap: 12px; margin-top: var(--space-8); color: var(--color-faint); font-size: 0.72rem; }
+  .auth-legal { display: flex; flex-wrap: wrap; gap: 12px; margin-top: var(--space-8); color: var(--color-faint); font-size: 0.72rem; }
+  .auth-modal { width: min(92vw, 440px); padding: 30px; border: 1px solid #b7d9c9; border-radius: 14px; color: var(--color-ink); background: #f7fcf9; box-shadow: 0 24px 80px rgba(0,0,0,.34); }
+  .auth-modal::backdrop { background: rgba(4, 25, 17, .72); backdrop-filter: blur(5px); }
+  .auth-modal .dialog-close { position: absolute; top: 14px; right: 16px; border: 0; color: #527266; background: transparent; font-size: 1.5rem; cursor: pointer; }
+  .auth-modal-head { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+  .auth-modal-head h2 { margin: 0; color: #174d3b; font-size: 1.55rem; }
+  .auth-modal .eyebrow { margin: 0 0 4px; color: #138762; }
+  .auth-modal .stack-form label { color: #557369; }
+  .auth-modal .stack-form input { color: #16372b; background: #fff; border-color: #b7d9c9; }
+  .auth-switch { margin-top: 18px; border: 0; color: #138762; background: transparent; text-decoration: underline; cursor: pointer; }
 .text-link { min-height: auto; padding: 0; border: 0; color: var(--color-accent); background: transparent; text-decoration: underline; text-underline-offset: 3px; }
 
 .onboarding-layout { display: grid; min-height: 100dvh; place-items: center; padding: 28px; background: radial-gradient(circle at 70% 0%, oklch(26% 0.09 145 / 0.22), transparent 40%), var(--color-canvas); }
@@ -246,8 +255,10 @@ p { line-height: 1.55; }
   .mine-stage { display: grid; place-items: center; padding: 24px; }
   .mines-embedded-stage { min-height: 620px; padding: 0; overflow: hidden; border-color: oklch(78% 0.185 96 / 0.34); background: #07130e; }
   .mines-game-embed, .external-game-embed { position: relative; z-index: 1; display: block; width: 100%; height: min(78dvh, 760px); min-height: 560px; border: 0; background: #07130e; pointer-events: auto; touch-action: manipulation; }
-  .external-game-stage { min-height: 640px; padding: 0; overflow: hidden; border-color: #9ccfbb; background: #07130e; }
-  .external-game-embed { height: min(82dvh, 800px); min-height: 600px; }
+  .external-game-stage { min-height: 0; height: clamp(420px, 58dvh, 560px); padding: 0; overflow: hidden; border-color: #9ccfbb; background: #07130e; }
+  .external-game-embed { height: 100%; min-height: 0; }
+  .game-view [data-game-action="aviator-start"], .game-view [data-game-action="mine-start"], .game-view [data-game-action="mine-reset"], .game-view [data-game-action="chicken-step"] { display: none; }
+  .game-view .game-actions:has([data-game-action="aviator-start"]), .game-view .game-actions:has([data-game-action="mine-start"]) { display: none; }
 
 .mine-grid { display: grid; width: min(100%, 360px); grid-template-columns: repeat(5, 1fr); gap: 8px; }
 .mine-cell { display: grid; aspect-ratio: 1; place-items: center; border: 1px solid var(--color-rule); border-radius: 9px; color: var(--color-muted); background: var(--color-surface-raised); font-family: var(--font-mono); font-size: 0.7rem; }
@@ -852,7 +863,8 @@ h1, h2, h3 { text-wrap: balance; }
 @keyframes aviator-impact-flash { 0% { opacity: 0.9; } 100% { opacity: 0; } }
 @keyframes apple-cell-flip { 0% { transform: rotateY(0deg); } 48% { transform: rotateY(90deg); } 100% { transform: rotateY(0deg); } }
 
-@media (max-width: 780px) {
+  @media (max-width: 780px) {
+  .external-game-stage { height: 520px; }
   .pipeline-stage { min-height: 405px; }
   .aviator-stage, .chicken-road-stage, .apple-stage, .mines-stage, .football-stage { min-height: 405px; }
   .road-playfield { right: 3%; left: 3%; height: 224px; }
