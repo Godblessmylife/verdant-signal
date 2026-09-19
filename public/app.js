@@ -933,6 +933,28 @@
     });
   }
 
+  function hydrateAppleWinCelebration() {
+    const overlay = document.querySelector('.apple-win-overlay[data-apple-win-token]');
+    if (!overlay) return;
+    const token = overlay.dataset.appleWinToken;
+    if (state.appleWinAnimatedToken === token) return;
+    state.appleWinAnimatedToken = token;
+    const scoreEl = overlay.querySelector('[data-apple-win-score]');
+    if (!scoreEl) return;
+    const target = Number(scoreEl.dataset.target) || 0;
+    const startedAt = performance.now();
+    const duration = 900;
+    const label = t('appleWin');
+    const tick = (now) => {
+      const progress = Math.min(1, (now - startedAt) / duration);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const value = Math.round(target * eased * 100) / 100;
+      scoreEl.textContent = `${label} +${value} \u20BD`;
+      if (progress < 1 && document.body.contains(scoreEl)) window.requestAnimationFrame(tick);
+    };
+    window.requestAnimationFrame(tick);
+  }
+
   function hydrateMinesAnimation(runtime, now = performance.now()) {
     if (!state.animationManifest) return;
     document.querySelectorAll('.mine-cell-animation').forEach((canvas) => {
@@ -961,7 +983,7 @@
   }
 
   function startDebugEffect(effect) { stopGameAnimation(); const sprites = createAtlasSet(); Object.values(sprites).forEach((player) => player.play()); state.debugRuntime = { token: Date.now(), effect, startedAt: performance.now(), sprites }; render(); state.sceneLoop.start((now) => tickDebug(state.debugRuntime?.token, now)); }
-  function hydrateSceneArt() { const now = performance.now(); drawAviatorScene(now); const runtime = runtimeFor('chicken-road'); if (runtime) { const chickenProgress = runtime.phase === 'jumping' ? Math.min(1, Math.max(0, (now - (runtime.motionStarted || now)) / 620)) : runtime.phase === 'fallen' ? Math.min(1, Math.max(0, (now - (runtime.motionStarted || now)) / 520)) : 1; hydrateChickenPose(runtime, chickenProgress); hydrateChickenAnimation(runtime, now); } const apple = runtimeFor('apple-of-fortune'); if (apple) hydrateAppleAnimation(apple, now); const mines = runtimeFor('mines'); if (mines) hydrateMinesAnimation(mines, now); const football = runtimeFor('football-penalties'); if (football) { const footballProgress = football.phase === 'kick' ? Math.min(1, Math.max(0, (now - (football.motionStarted || now)) / 650)) : football.phase === 'reaction' ? Math.min(1, Math.max(0, (now - (football.resultStartedAt || now)) / 420)) : 1; hydrateFootballPose(football, footballProgress); } if (state.debugRuntime) drawDebugCanvas(now); }
+  function hydrateSceneArt() { const now = performance.now(); drawAviatorScene(now); const runtime = runtimeFor('chicken-road'); if (runtime) { const chickenProgress = runtime.phase === 'jumping' ? Math.min(1, Math.max(0, (now - (runtime.motionStarted || now)) / 620)) : runtime.phase === 'fallen' ? Math.min(1, Math.max(0, (now - (runtime.motionStarted || now)) / 520)) : 1; hydrateChickenPose(runtime, chickenProgress); hydrateChickenAnimation(runtime, now); } const apple = runtimeFor('apple-of-fortune'); if (apple) { hydrateAppleAnimation(apple, now); hydrateAppleWinCelebration(); } const mines = runtimeFor('mines'); if (mines) hydrateMinesAnimation(mines, now); const football = runtimeFor('football-penalties'); if (football) { const footballProgress = football.phase === 'kick' ? Math.min(1, Math.max(0, (now - (football.motionStarted || now)) / 650)) : football.phase === 'reaction' ? Math.min(1, Math.max(0, (now - (football.resultStartedAt || now)) / 420)) : 1; hydrateFootballPose(football, footballProgress); } if (state.debugRuntime) drawDebugCanvas(now); }
   function drawCharts() { drawAviatorScene(); }
 
   function guestPlayer() {
