@@ -113,10 +113,6 @@
     runtime: null, footballHistory: [], debugRuntime: null, sceneLoop: null, animationManifest: null,
   };
 
-  function guestPlayer() {
-    return { playerId: 'guest-line', nickname: 'Гость', profileCompleted: true, balanceMinor: 0, bonusBalanceMinor: 0, currencyCode: 'RUB', currencyFractionDigits: 2, currencyLocale: 'ru-RU', level: 1, activeDays: 0, consecutiveActiveDays: 0, withdrawalEligible: false };
-  }
-
   let locale = localStorage.getItem('verdant-locale') || 'ru';
   if (!locales.includes(locale)) locale = 'en';
 
