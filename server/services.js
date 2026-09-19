@@ -198,7 +198,7 @@ function createServices({ db, countries, currencies, minWithdrawalMinor }) {
       gameLabel: GAME_LABELS[game],
       demo: true,
       mode: 'SIMULATED DATA',
-      status: 'DEMO ANALYSIS',
+      status: 'AI ANALYSIS',
       generatedAt: nowIso(),
       disclaimer: 'Pattern-based review only. No outcome is guaranteed.',
     };

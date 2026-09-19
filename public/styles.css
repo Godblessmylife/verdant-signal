@@ -159,7 +159,11 @@ p { line-height: 1.55; }
 .status-badge { display: inline-flex; min-height: 28px; align-items: center; gap: 7px; padding: 0 10px; border: 1px solid oklch(78% 0.185 96 / 0.28); border-radius: 999px; color: var(--color-accent); background: oklch(78% 0.185 96 / 0.07); font-family: var(--font-mono); font-size: 0.63rem; font-weight: 600; letter-spacing: 0.08em; }
 .status-badge::before { width: 5px; height: 5px; border-radius: 50%; background: currentColor; content: ''; }
 .status-badge.muted { border-color: var(--color-rule); color: var(--color-muted); background: transparent; }
-.status-badge.warning { border-color: oklch(84% 0.15 92 / 0.3); color: var(--color-warning); background: oklch(84% 0.15 92 / 0.07); }
+ .status-badge.warning { border-color: oklch(84% 0.15 92 / 0.3); color: var(--color-warning); background: oklch(84% 0.15 92 / 0.07); }
+ .status-badge.online-badge { border-color: oklch(72% 0.19 145 / 0.35); color: oklch(78% 0.19 145); background: oklch(72% 0.19 145 / 0.08); }
+ .status-badge.online-badge::before { display: none; }
+ .online-pulse { width: 7px; height: 7px; border-radius: 50%; background: oklch(78% 0.19 145); box-shadow: 0 0 0 0 oklch(78% 0.19 145 / 0.6); animation: online-pulse-anim 1.8s ease-out infinite; }
+ @keyframes online-pulse-anim { 0% { box-shadow: 0 0 0 0 oklch(78% 0.19 145 / 0.55); } 70% { box-shadow: 0 0 0 6px oklch(78% 0.19 145 / 0); } 100% { box-shadow: 0 0 0 0 oklch(78% 0.19 145 / 0); } }
 .metric-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; margin-bottom: var(--space-6); border: 1px solid var(--color-rule); background: var(--color-rule); }
 .metric { min-height: 122px; padding: 19px; background: var(--color-surface); }
 .metric-label { display: block; margin-bottom: 22px; color: var(--color-faint); font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.1em; text-transform: uppercase; }
