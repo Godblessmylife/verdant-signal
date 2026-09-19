@@ -712,6 +712,11 @@ h1, h2, h3 { text-wrap: balance; }
 .apple-round-metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
 .apple-round-metric { display: grid; gap: 6px; padding: 12px; border: 1px solid var(--color-rule); border-radius: 10px; background: var(--color-surface-raised); }
 .apple-round-metric .metric-value { font-size: 1.1rem; }
+.apple-round-metric-stake, .apple-round-metric-potential { border-color: #1f7a35; background: linear-gradient(160deg, #0f3d1c, #0a2812); box-shadow: inset 0 0 0 1px rgba(90, 230, 130, 0.18); }
+.apple-round-metric-stake .metric-label, .apple-round-metric-potential .metric-label { color: #8ff0ab; }
+.apple-stake-value, .apple-potential-value { color: #4ade6a !important; text-shadow: 0 0 14px rgba(74, 222, 106, 0.55); }
+.apple-inline-message { margin: 0 0 14px; padding: 10px 12px; border: 1px solid rgba(230, 90, 90, 0.4); border-radius: 8px; background: rgba(230, 90, 90, 0.12); color: #ffb4b4; font-size: 0.85rem; }
+.apple-cashout-btn { grid-column: 1 / -1; padding: 12px 20px; border: none; border-radius: 10px; color: #072b0f; background: linear-gradient(160deg, #6bf58f, #2fb559); box-shadow: 0 4px 0 #1f7a3b, 0 7px 12px rgba(0, 0, 0, 0.35); font-weight: 700; letter-spacing: 0.03em; cursor: pointer; }
 .apple-fullstage { position: relative; isolation: isolate; overflow: hidden; display: flex; flex-direction: column; width: 100%; min-height: 560px; border: 1px solid #3a2716; border-radius: 16px; background: #0c1f14; box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45); }
 .apple-fullstage .apple-bg { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; object-fit: cover; }
 .apple-fullstage .apple-vignette { position: absolute; inset: 0; z-index: 1; background: radial-gradient(ellipse at 50% 42%, transparent 42%, rgba(3, 12, 7, 0.55) 82%), linear-gradient(180deg, rgba(4, 12, 8, 0.25), transparent 18%, transparent 74%, rgba(3, 10, 6, 0.55)); pointer-events: none; }
