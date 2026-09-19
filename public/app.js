@@ -497,7 +497,10 @@
     let statusText;
     if (runtime.phase === 'idle') statusText = t('appleBetPrompt');
     else if (runtime.phase === 'ended') statusText = runtime.score > 0 ? `${t('appleWin')}: ${runtime.score} \u20BD` : t('appleBetPrompt');
-    else statusText = `${t('currentRow')} ${runtime.activeRow}/${rows.length} \u00B7 ${t('applePotential')}: ${potential} \u20BD`;
+    else {
+      const bankedText = runtime.score > 0 ? `${t('appleBanked')}: ${runtime.score} \u20BD \u00B7 ` : '';
+      statusText = `${bankedText}${t('currentRow')} ${runtime.activeRow}/${rows.length} \u00B7 ${t('applePotential')}: ${potential} \u20BD`;
+    }
 
     const rowsHtml = orderedRows.map((row) => {
       const revealed = revealedCells[row.level];
@@ -511,7 +514,7 @@
         const stateClass = selected ? (safe ? 'is-safe' : 'is-danger') : suggested ? 'is-suggested' : '';
         const opening = selected && runtime.phase === 'opening';
         const showSprite = selected || suggested;
-        return `<button class="apple-cell ${stateClass}${opening ? ' is-opening' : ''}" type="button" data-game-action="apple-reveal" data-cell="${cell}" ${locked ? 'disabled' : ''} aria-label="${t('cell')} ${cell}, ${isActiveRow ? t('available') : t('unopened')}"><span class="apple-cell-inner"><img class="apple-tile" src="${ART.apple.tile}" alt="" aria-hidden="true">${showSprite ? `<img class="apple-sprite" src="${safe || suggested ? ART.apple.whole : ART.apple.bitten}" alt="${safe || suggested ? t('cellSafe') : t('cellMine')}">` : ''}${showSprite ? `<canvas class="apple-cell-animation" data-animation-cell="${row.level}-${cell}" aria-hidden="true"></canvas>` : ''}</span></button>`;
+        return `<button class="apple-cell ${stateClass}${opening ? ' is-opening' : ''}" type="button" data-game-action="apple-reveal" data-cell="${cell}" ${locked ? 'disabled' : ''} aria-label="${t('cell')} ${cell}, ${isActiveRow ? t('available') : t('unopened')}"><span class="apple-cell-inner"><img class="apple-tile" src="${ART.apple.tile}" alt="" aria-hidden="true">${showSprite ? `<img class="apple-sprite" src="${safe || suggested ? ART.apple.whole : ART.apple.bitten}" alt="" aria-hidden="true">` : ''}${showSprite ? `<canvas class="apple-cell-animation" data-animation-cell="${row.level}-${cell}" aria-hidden="true"></canvas>` : ''}</span></button>`;
       }).join('');
       const multiplierText = escapeHTML(String(row.multiplier || '').replace(/^x/i, ''));
       return `<div class="apple-row${isActiveRow ? ' is-current' : ''}${activeReveal ? ' is-revealed' : ''}"><div class="apple-cells">${cellsHtml}</div><span class="apple-row-multiplier${isActiveRow ? ' is-current' : ''}">x${multiplierText}</span></div>`;
@@ -519,12 +522,22 @@
 
     const stakeChipsHtml = APPLE_STAKES.map((value) => `<button class="apple-chip${Number(runtime.stake) === value ? ' is-active' : ''}" type="button" data-game-action="apple-stake-chip" data-stake="${value}" ${canConfigure ? '' : 'disabled'}>${value}</button>`).join('');
 
+    const showWinCelebration = runtime.phase === 'ended' && runtime.score > 0;
+    const confettiHtml = Array.from({ length: 24 }, (_, i) => `<span class="apple-confetti-piece" style="--i:${i}"></span>`).join('');
+    const winCelebrationHtml = showWinCelebration ? `<div class="apple-win-overlay" data-apple-win-token="${runtime.roundToken || runtime.score}" aria-live="polite">
+      <div class="apple-win-burst" aria-hidden="true"></div>
+      <div class="apple-confetti" aria-hidden="true">${confettiHtml}</div>
+      <img class="apple-win-apple" src="${ART.apple.whole}" alt="">
+      <div class="apple-win-score" data-apple-win-score data-target="${Number(runtime.score) || 0}">${t('appleWin')} +0 \u20BD</div>
+    </div>` : '';
+
     return `<div class="apple-fullstage" data-runtime-game="apple-of-fortune">
       <img class="apple-bg" src="${ART.apple.background}" alt="" aria-hidden="true">
       <div class="apple-vignette" aria-hidden="true"></div>
       <img class="apple-character apple-queen" src="${ART.apple.queen}" alt="\u0417\u043B\u0430\u044F \u043A\u043E\u0440\u043E\u043B\u0435\u0432\u0430">
       <img class="apple-character apple-snow" src="${ART.apple.snowWhite}" alt="\u0411\u0435\u043B\u043E\u0441\u043D\u0435\u0436\u043A\u0430">
       <img class="apple-logo" src="${ART.apple.logo}" alt="Apple of Fortune">
+      ${winCelebrationHtml}
       <div class="apple-panel">
         <img class="apple-vine apple-vine-left" src="${ART.apple.vine}" alt="" aria-hidden="true">
         <img class="apple-vine apple-vine-right" src="${ART.apple.vine}" alt="" aria-hidden="true">
@@ -659,7 +672,7 @@
   }
 
   function openRules() { const dialog = document.getElementById('legal-dialog'); if (!dialog) return; const body = dialog.querySelector('[data-legal-body]'); body.innerHTML = `<p class="eyebrow">${t('footballPenalties')} / ${t('simulationMode')}</p><h2>${t('rules')}</h2><p data-rules-text></p>`; body.querySelector('[data-rules-text]').textContent = t('footballRulesText'); dialog.showModal(); }
-  function openAppleRules() { const dialog = document.getElementById('legal-dialog'); if (!dialog) return; const body = dialog.querySelector('[data-legal-body]'); body.innerHTML = `<p class="eyebrow">${t('appleFortune')} / ${t('simulationMode')}</p><h2>${t('rules')}</h2><p data-rules-text></p>`; body.querySelector('[data-rules-text]').textContent = t('appleRulesText'); dialog.showModal(); }
+  function openAppleRules() { const dialog = document.getElementById('legal-dialog'); if (!dialog) return; const body = dialog.querySelector('[data-legal-body]'); body.innerHTML = `<p class="eyebrow">${t('appleFortune')}</p><h2>${t('rules')}</h2><p data-rules-text></p>`; body.querySelector('[data-rules-text]').textContent = t('appleRulesText'); dialog.showModal(); }
   function bindLegalLinks() { document.querySelectorAll('[data-legal]').forEach((button) => button.addEventListener('click', () => openLegal(button.dataset.legal))); }
   function bindDialogClose() { document.querySelector('[data-close-dialog]')?.addEventListener('click', () => document.getElementById('legal-dialog')?.close()); }
 
@@ -697,6 +710,7 @@
     document.getElementById('football-role')?.addEventListener('change', (event) => { const runtime = runtimeFor('football-penalties') || createFootballRuntime(); runtime.role = event.target.value; state.runtime = runtime; render(); });
     document.querySelectorAll('[data-debug-effect]').forEach((button) => button.addEventListener('click', () => startDebugEffect(button.dataset.debugEffect))); document.querySelector('[data-debug-stop]')?.addEventListener('click', () => { stopGameAnimation(); render(); });
     bindLegalLinks();
+    bindDialogClose();
   }
 
   function openWithdrawDialog() { const dialog = document.getElementById('legal-dialog'); if (!dialog) return; const body = dialog.querySelector('[data-legal-body]'); body.innerHTML = `<p class="eyebrow">${t('withdrawal')}</p><h2>${t('withdrawBalance')}</h2><p data-withdraw-copy></p><button class="button button-ghost" data-close-dialog type="button">${t('close')}</button>`; body.querySelector('[data-withdraw-copy]').textContent = t('withdrawalDemo'); body.querySelector('[data-close-dialog]').addEventListener('click', () => dialog.close()); dialog.showModal(); }
@@ -971,6 +985,20 @@
       render();
     }
   }
+
+  // Delegated, bound once on document so dialog close buttons always work even if the
+  // shell HTML (and therefore the button node) gets replaced by a render() while a
+  // native <dialog> is open. Direct per-render bindings can miss a race where a click
+  // lands right as innerHTML is swapped out.
+  document.addEventListener('click', (event) => {
+    const closeDialogTarget = event.target.closest('[data-close-dialog]');
+    if (closeDialogTarget) { document.getElementById('legal-dialog')?.close(); return; }
+    const closeAuthTarget = event.target.closest('[data-close-auth]');
+    if (closeAuthTarget) { document.getElementById('auth-modal')?.close(); return; }
+    const closeFrameTarget = event.target.closest('[data-close-frame]');
+    if (closeFrameTarget) { document.getElementById('game-frame-dialog')?.close(); return; }
+    if (event.target.id === 'legal-dialog' || event.target.id === 'auth-modal') event.target.close();
+  });
 
   state.sceneLoop = new SceneAnimationLoop(); window.addEventListener('resize', () => { if (state.view === 'game' || state.view === 'overview') hydrateSceneArt(); }); window.addEventListener('pagehide', stopGameAnimation); init();
 }());
