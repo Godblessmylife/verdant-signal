@@ -531,7 +531,7 @@
       <div class="apple-win-score" data-apple-win-score data-target="${Number(runtime.score) || 0}">${t('appleWin')} +0 \u20BD</div>
     </div>` : '';
 
-    return `<div class="apple-fullstage" data-runtime-game="apple-of-fortune">
+    const stageHtml = `<div class="apple-fullstage" data-runtime-game="apple-of-fortune">
       <img class="apple-bg" src="${ART.apple.background}" alt="" aria-hidden="true">
       <div class="apple-vignette" aria-hidden="true"></div>
       <img class="apple-character apple-queen" src="${ART.apple.queen}" alt="\u0417\u043B\u0430\u044F \u043A\u043E\u0440\u043E\u043B\u0435\u0432\u0430">
@@ -558,6 +558,11 @@
         <button class="apple-auto-btn${runtime.auto ? ' is-active' : ''}" type="button" data-game-action="apple-auto" aria-pressed="${runtime.auto ? 'true' : 'false'}">${t('appleAuto')}</button>
       </div>
     </div>`;
+
+    const potentialFormatted = `${potential.toLocaleString('ru-RU')} \u20BD`;
+    const balanceWindowHtml = `<section class="panel apple-balance-panel"><div class="panel-head"><div><p class="panel-kicker">${t('balance')}</p><h2>${t('gameStatus')}</h2></div><span class="status-dot"></span></div><div class="panel-body">${renderMetrics()}<div class="apple-round-metrics"><div class="apple-round-metric"><span class="metric-label">${t('appleStake')}</span><strong class="metric-value">${escapeHTML(String(Number(runtime.stake) || 0))} \u20BD</strong></div><div class="apple-round-metric"><span class="metric-label">${t('applePotential')}</span><strong class="metric-value accent">${escapeHTML(potentialFormatted)}</strong></div></div><button class="button button-ghost button-full" data-game-action="apple-reset" type="button">${t('resetBoard')}</button></div></section>`;
+
+    return `<header class="workspace-header game-header"><div><p class="eyebrow">${t('games')} / ${String(games.indexOf('apple-of-fortune') + 1).padStart(2, '0')}</p><h1>${gameLabel('apple-of-fortune')}</h1><p class="lede">${t('gameIntro')}</p></div><div class="header-actions"><button class="game-exit-button" data-view="overview" type="button"><span class="game-exit-icon" aria-hidden="true">&#8592;</span>${t('backToHome')}</button></div></header><div class="content-width game-view apple-game-view"><div class="game-layout"><section class="game-stage apple-game-stage">${stageHtml}</section><aside class="game-side">${balanceWindowHtml}<section class="panel result-panel"><div class="panel-head"><div><p class="panel-kicker">${t('result')}</p><h2>${t('latestSignal')}</h2></div></div><div class="panel-body">${renderResult(state.analysis?.game === 'apple-of-fortune' ? state.analysis : null)}</div></section></aside></div>${renderFooter()}</div>`;
   }
 
   function renderMinesStage() {
