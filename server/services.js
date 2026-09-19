@@ -196,7 +196,6 @@ function createServices({ db, countries, currencies, minWithdrawalMinor }) {
     const base = {
       game,
       gameLabel: GAME_LABELS[game],
-      demo: true,
       mode: 'SIMULATED DATA',
       status: 'AI ANALYSIS',
       generatedAt: nowIso(),

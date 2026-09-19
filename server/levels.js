@@ -4,7 +4,7 @@ const LEVELS = [
   { level: 3, title: 'Pattern scout', requiredActiveDays: 7, bonusMinor: 1000, description: 'A week of separate active days.' },
   { level: 4, title: 'Round reader', requiredActiveDays: 30, bonusMinor: 2500, description: 'A month of measured observation.' },
   { level: 5, title: 'Signal keeper', requiredActiveDays: 60, bonusMinor: 5000, description: 'Two months of consistent observation.' },
-  { level: 6, title: 'Long view', requiredActiveDays: 90, bonusMinor: 10000, description: 'Ninety active days unlock the demo withdrawal review.' },
+  { level: 6, title: 'Long view', requiredActiveDays: 90, bonusMinor: 10000, description: 'Ninety active days unlock the withdrawal review.' },
 ];
 
 module.exports = { LEVELS };
