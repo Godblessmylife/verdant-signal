@@ -461,10 +461,9 @@
   function renderFooter() { return `<footer class="statement-footer"><div><p>BETWINNER LINE / ${t('analysisEngine')} / ${t('simulatedData')}</p><div class="footer-links"><button class="text-link" data-legal="privacy" type="button">${t('legalPrivacy')}</button><button class="text-link" data-legal="terms" type="button">${t('legalTerms')}</button><button class="text-link" data-legal="responsible" type="button">${t('legalResponsible')}</button><button class="text-link" data-legal="disclaimer" type="button">${t('legalDisclaimer')}</button></div></div><p>${t('disclaimerText')}</p></footer>`; }
 
   function renderAviatorStage() {
-  const runtime = runtimeFor('aviator');
-  const phase = runtime?.phase || 'ready';
-  const captionText = phase === 'countdown' ? `${t('countdown')}: ${runtime.countdown}` : phaseLabel(phase);
-  return `<div class="visual-stage aviator-stage pipeline-stage" data-runtime-game="aviator" data-phase="${phase}"><canvas class="scene-animation-canvas aviator-animation-canvas" data-game-canvas="aviator" aria-hidden="true"></canvas><div class="countdown-hero" data-countdown-hero ${phase === 'countdown' ? '' : 'hidden'}><span data-runtime-countdown-hero>${phase === 'countdown' ? runtime.countdown : ''}</span></div><div class="aviator-center-readout"><span class="readout-label">${t('multiplier')}</span><strong data-runtime-multiplier>${Number(runtime?.multiplier || 1).toFixed(2)}x</strong></div><div class="stage-caption"><span data-runtime-caption>${escapeHTML(captionText)}</span></div></div>`;
+    const isMobileViewport = typeof window !== 'undefined' && window.innerWidth <= 780;
+    const aviatorUrl = `https://gx-games-54rg78cw-tralt14.click/fg-aviashow-client/game/?activeGameId=0&partnerId=2695&token=&playerId=0&culture=en&isDemo=true&isMobile=${isMobileViewport}&referer=&isFeatureMessagePackEnabled=true&isMessagePackEnabled=false&backUrl=gx-games-54rg78cw-tralt14.click/fg-aviashow-api&gameKindName=AviaShow&gameTypeName=AviaShow&mode=2&partnerPlayerId=`;
+    return `<div class="visual-stage external-game-stage aviator-embed-stage" data-runtime-game="aviator"><iframe class="external-game-embed" src="${aviatorUrl}" title="Aviator game" referrerpolicy="no-referrer" allow="fullscreen; autoplay; gamepad" loading="eager"></iframe></div>`;
   }
 
   function renderChickenStage() {
@@ -570,19 +569,16 @@
   }
 
   function renderMinesStage() {
-  const runtime = runtimeFor('mines') || createMineRuntime();
-  const size = runtime.size || 25; const columns = Math.round(Math.sqrt(size));
-  const analyzing = runtime.phase === 'analyzing'; const revealed = runtime.phase === 'revealed';
-  const cells = Array.from({ length: size }, (_, index) => {
-    const isMine = revealed && runtime.minePositions.includes(index);
-    const isSafe = revealed && !runtime.minePositions.includes(index);
-    return `<div class="mine-cell ${isMine ? 'is-mine' : ''} ${isSafe ? 'is-safe' : ''}">${isMine ? `<img src="${ART.mines.bomb}" alt="${t('cellMine')}">` : isSafe ? `<img src="${ART.mines.diamond}" alt="${t('safe')}">` : ''}</div>`;
-  }).join('');
-  const captionText = revealed ? `${t('accuracyLabel')}: ${runtime.accuracy}%` : analyzing ? t('analyzingSignal') : t('awaitingSignal');
-  return `<div class="visual-stage mines-stage pipeline-stage ${analyzing ? 'is-analyzing' : ''}" data-runtime-game="mines" style="--mine-columns:${columns}"><div class="mine-grid">${cells}</div><div class="stage-caption"><span>${t('fieldSize')}: ${columns}×${columns}</span><span>${captionText}</span></div></div>`;
+    const minesGameUrl = 'https://democasino.betsoftgaming.com/cwguestlogin.do?bankId=675&CDN=AUTO&gameId=959';
+    return `<div class="visual-stage mines-stage mines-embedded-stage" data-runtime-game="mines"><iframe class="mines-game-embed" src="${minesGameUrl}" title="Mines casino game" referrerpolicy="no-referrer" allow="fullscreen; autoplay" loading="eager"></iframe></div>`;
   }
 
   function renderFootballStage() {
+    const footballGameUrl = 'https://run.demo-evoplay.games/instant/evoplay/penaltyshootout/?operator=250&session=10257241663&window=1&demo=1&s=b4cdf363ff6e026e277829e8a3938187';
+    return `<div class="visual-stage football-stage football-embedded-stage" data-runtime-game="football-penalties"><iframe class="football-game-embed" src="${footballGameUrl}" title="Football Penalty Shootout game" referrerpolicy="no-referrer" allow="fullscreen; autoplay; gamepad" loading="eager"></iframe></div>`;
+  }
+
+  function renderFootballStageLegacy() {
     const analysis = state.analysis?.game === 'football-penalties' ? state.analysis : null; const runtime = runtimeFor('football-penalties') || { phase: 'ready', role: 'striker', selectedZone: analysis?.recommendedZone || 3, selectedDirection: 3, stake: 100 }; const chosen = runtime.role === 'striker' ? runtime.selectedZone : runtime.selectedDirection; const terminal = ['goal', 'save', 'miss'].includes(runtime.phase);
     return `<div class="visual-stage football-stage pipeline-stage ${runtime.phase !== 'ready' ? `is-${runtime.phase}` : ''}" data-runtime-game="football-penalties"><div class="goal-scene"><div class="goal-net"><div class="goal-grid" aria-hidden="true"></div><canvas class="scene-animation-canvas football-animation-canvas" data-animation-canvas="football" aria-hidden="true"></canvas><div class="goal-zones">${[1, 2, 3, 4, 5].map((zone) => `<button class="goal-zone ${chosen === zone ? 'is-selected' : ''} ${terminal && ((runtime.result === 'goal' && zone === chosen) || (runtime.result === 'save' && zone === chosen)) ? 'is-correct' : ''} ${terminal && runtime.result === 'miss' && zone === chosen ? 'is-wrong' : ''}" type="button" data-game-action="${runtime.role === 'striker' ? 'football-zone' : 'football-direction'}" data-zone="${zone}" ${runtime.phase !== 'ready' ? 'disabled' : ''} aria-label="${t('zone')} ${zone}"><span class="zone-number">${zone}</span><small class="zone-coefficient">${['1.42x','1.68x','2.00x','1.68x','1.42x'][zone - 1]}</small></button>`).join('')}</div><div class="keeper-actor" data-art-layer="keeper"><img class="keeper-sprite" src="${ART.football.goalkeeper}" alt="${t('goalkeeper')}"></div><div class="football-ball" data-art-layer="ball" aria-hidden="true"><img src="${ART.football.ball}" alt=""></div></div></div><div class="football-readout"><span class="readout-label">${t('result')}</span><strong data-football-result aria-live="polite">${runtime.result ? phaseLabel(runtime.result) : t('chooseZone')}</strong><small>${terminal && runtime.result === 'goal' ? `${t('simulatedReturn')}: 2x` : t('virtualOnly')}</small></div><div class="stage-caption"><span>${runtime.role === 'striker' ? t('striker') : t('keeper')} / ${t('shotZones')}: 5</span><strong class="football-score"><img class="score-ball-icon" src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/41932-tNuBJBWvgro2bhl92YEnqMtghclOte.jpg" alt="" aria-hidden="true"> Счёт: ${runtime.score || 0}</strong></div></div>`;
   }
