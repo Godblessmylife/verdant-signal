@@ -1,6 +1,7 @@
 window.VERDANT_TRANSLATIONS = {
   en: {
     appName: 'VERDANT', appTag: 'SIGNAL', appKicker: 'AI-assisted round analysis',
+    signalOnlyNote: 'This mode only shows a signal forecast — no bet is placed.',
     signInTitle: 'Read the round with more context.', signInCopy: 'A focused workspace for simulated pattern review across five games.',
     playerId: 'Player ID', playerIdPlaceholder: 'Enter your Player ID', accessCode: 'Access Code', accessCodePlaceholder: 'Enter your Access Code',
     signIn: 'Enter workspace', signingIn: 'Opening workspace…', newSession: 'New local player sessions are created on first sign in.',
