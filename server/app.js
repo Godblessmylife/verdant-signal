@@ -19,7 +19,21 @@ function createApp(options = {}) {
   const dbPath = options.dbPath || path.join(dataDir, 'verdant-signal.sqlite');
   fs.mkdirSync(path.dirname(dbPath), { recursive: true });
   const db = openDatabase(dbPath);
-  const sessionSecret = options.sessionSecret || process.env.SESSION_SECRET || crypto.randomBytes(32).toString('hex');
+  const sessionSecretPath = path.join(dataDir, '.session-secret');
+  function resolveDevSessionSecret() {
+    try {
+      return fs.readFileSync(sessionSecretPath, 'utf8').trim();
+    } catch {
+      const generated = crypto.randomBytes(32).toString('hex');
+      try {
+        fs.writeFileSync(sessionSecretPath, generated, { mode: 0o600 });
+      } catch {
+        // Ignore write failures (e.g. read-only filesystem); fall back to in-memory secret.
+      }
+      return generated;
+    }
+  }
+  const sessionSecret = options.sessionSecret || process.env.SESSION_SECRET || resolveDevSessionSecret();
   const adminPassword = options.adminPassword || process.env.ADMIN_PASSWORD || 'change-this-development-password';
   const minWithdrawalMinor = Number.isSafeInteger(Number(options.minWithdrawalMinor || process.env.MIN_WITHDRAWAL_UNITS))
     ? Number(options.minWithdrawalMinor || process.env.MIN_WITHDRAWAL_UNITS)
@@ -145,6 +159,17 @@ function createApp(options = {}) {
       currency_fraction_digits = ?, profile_completed_at = COALESCE(profile_completed_at, ?), accepted_terms_at = COALESCE(accepted_terms_at, ?),
       accepted_disclaimer_at = COALESCE(accepted_disclaimer_at, ?), show_in_activity = ?, updated_at = ? WHERE id = ?`)
       .run(nickname, country.code, country.name, currency.code, currency.name, currency.fractionDigits, stamp, stamp, stamp, showInActivity === false ? 0 : current.show_in_activity, stamp, req.player.id);
+    return res.json({ ok: true, player: services.safePlayer(services.getPlayer(req.player.id)) });
+  });
+
+  app.patch('/api/player/balance', requirePlayer, (req, res) => {
+    const raw = req.body?.balanceMinor;
+    const balanceMinor = Number(raw);
+    if (!Number.isSafeInteger(balanceMinor) || balanceMinor < 0 || balanceMinor > 1_000_000_000_00) {
+      return sendError(res, 400, 'INVALID_INPUT', 'Balance must be a non-negative amount.');
+    }
+    const stamp = new Date().toISOString();
+    db.prepare('UPDATE players SET balance_minor = ?, updated_at = ? WHERE id = ?').run(balanceMinor, stamp, req.player.id);
     return res.json({ ok: true, player: services.safePlayer(services.getPlayer(req.player.id)) });
   });
 

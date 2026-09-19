@@ -196,9 +196,8 @@ function createServices({ db, countries, currencies, minWithdrawalMinor }) {
     const base = {
       game,
       gameLabel: GAME_LABELS[game],
-      demo: true,
       mode: 'SIMULATED DATA',
-      status: 'DEMO ANALYSIS',
+      status: 'AI ANALYSIS',
       generatedAt: nowIso(),
       disclaimer: 'Pattern-based review only. No outcome is guaranteed.',
     };
@@ -209,7 +208,8 @@ function createServices({ db, countries, currencies, minWithdrawalMinor }) {
       const difficulty = ['calm', 'balanced', 'sharp'].includes(input.difficulty) ? input.difficulty : 'balanced';
       analysis = { ...base, difficulty, safeSteps: [1, 2, 3], currentStep: 3, multiplier: difficulty === 'sharp' ? '1.62x' : difficulty === 'calm' ? '1.24x' : '1.38x', note: 'Each step is probabilistic. A suggested path is not a promise.' };
     } else if (game === 'apple-of-fortune') {
-      analysis = { ...base, rows: Array.from({ length: 4 }, (_, index) => ({ level: index + 1, recommendedCell: ((zone + index) % 5) + 1, cells: [1, 2, 3, 4, 5], multiplier: `${(1.1 + index * 0.34).toFixed(2)}x` })), note: 'One safe cell is shown for visual simulation; all outcomes remain uncertain.' };
+      const APPLE_MULTIPLIERS = ['1.23', '1.54', '1.93', '2.41', '4.02', '6.71', '11.18', '27.97', '69.93', '349.68'];
+    analysis = { ...base, rows: APPLE_MULTIPLIERS.map((multiplier, index) => ({ level: index + 1, recommendedCell: ((zone + index) % 5) + 1, cells: [1, 2, 3, 4, 5], multiplier: `x${multiplier}` })), note: 'One safe cell is shown for visual simulation; all outcomes remain uncertain.' };
     } else if (game === 'mines') {
       const size = [16, 25, 36].includes(Number(input.size)) ? Number(input.size) : 25;
       const mines = Math.min(Math.max(Number(input.mines) || 4, 1), Math.floor(size / 2));
