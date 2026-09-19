@@ -307,6 +307,11 @@ p { line-height: 1.55; }
 .withdrawal-card.locked { border-color: oklch(84% 0.15 92 / 0.2); }
 .withdrawal-card h2 { margin-bottom: 10px; }
 .withdrawal-card p { color: var(--color-muted); font-size: 0.82rem; }
+.manual-balance-panel .manual-balance-note { margin-bottom: var(--space-4); color: var(--color-muted); font-size: 0.82rem; }
+.manual-balance-form { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--space-4); }
+.manual-balance-form label { flex: 1 1 240px; min-width: 200px; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-faint); }
+.manual-balance-form input { width: 100%; min-height: 48px; margin-top: 7px; padding: 0 14px; border: 1px solid var(--color-rule); border-radius: var(--radius-sm); outline: 0; color: var(--color-ink); background: var(--color-surface); font-family: var(--font-sans); text-transform: none; }
+.manual-balance-form button { flex: 0 0 auto; }
 .activity-table { width: 100%; border-collapse: collapse; }
 .activity-table th, .activity-table td { padding: 14px 12px; border-bottom: 1px solid var(--color-rule); text-align: left; }
 .activity-table th { color: var(--color-faint); font-family: var(--font-mono); font-size: 0.62rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
