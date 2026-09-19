@@ -35,7 +35,7 @@
       whole: `${ART_ROOT}/apple/objects/apple-whole.png`,
       bitten: `${ART_ROOT}/apple/objects/apple-bitten.png`,
       tile: `${ART_ROOT}/apple/tiles/closed-wooden-board-tile-reconstruction.png`,
-      background: '/images/apple-fortune/background.jpg',
+      background: '/images/apple-fortune/background.png',
       queen: '/images/apple-fortune/evil-queen.png',
       snowWhite: '/images/apple-fortune/snow-white.png',
       logo: '/images/apple-fortune/logo.png',
